@@ -1,0 +1,18 @@
+<!-- Lista de avisos, mostrada solo si existe al menos un registro -->
+<ion-list *ngIf="avisos && avisos.length > 0; else sinAvisos">
+  
+  <!-- Renderiza cada aviso usando el componente hijo app-aviso-item -->
+  <app-aviso-item
+    *ngFor="let aviso of avisos"
+    [aviso]="aviso"
+    (eliminar)="eliminarAviso.emit(aviso)">
+  </app-aviso-item>
+
+</ion-list>
+
+<!-- Vista alternativa cuando no hay avisos registrados -->
+<ng-template #sinAvisos>
+  <p class="sin-aviso">
+    No hay avisos registrados aún.
+  </p>
+</ng-template>

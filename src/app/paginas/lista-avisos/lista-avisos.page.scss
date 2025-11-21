@@ -1,0 +1,30 @@
+/* Ajusta la posición del botón flotante considerando la zona segura
+   en dispositivos con gestos o barra inferior (Android/iOS modernos). */
+ion-fab {
+  bottom: calc(env(safe-area-inset-bottom, 16px) + 40px);
+}
+
+/* Agrega espacio adicional al final del contenido para evitar que
+   elementos queden ocultos tras la barra de navegación del dispositivo. */
+ion-content {
+  --padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 32px);
+}
+
+/* Estilos del modal de confirmación.
+   Se fuerza un tamaño moderado para evitar que cubra toda la pantalla. */
+ion-modal.modal-confirmacion {
+  --width: 85%;
+  --max-width: 360px;
+  --height: auto;
+  --border-radius: 16px
+  --background: #ffffff;
+  --box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+
+/* Ajuste del contenido interno del modal.
+   Se aplica usando ::part porque IonModal usa Shadow DOM. */
+ion-modal.modal-confirmacion::part(content) {
+  border-radius: 16px;
+  padding: 20px;
+  margin: auto;
+}

@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- Botón para volver a la lista de avisos -->
+      <ion-back-button defaultHref="/lista-avisos"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nuevo aviso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- Formulario reactivo que gestiona el ingreso del aviso -->
+  <form
+    [formGroup]="formulario"
+    (ngSubmit)="guardar()"
+    class="formulario-aviso">
+
+    <!-- Campo: Título del aviso -->
+    <ion-item>
+      <ion-label position="stacked">Título</ion-label>
+      <ion-input
+        formControlName="titulo"
+        placeholder="Ej: Perro perdido en la plaza">
+      </ion-input>
+    </ion-item>
+
+    <!-- Validaciones del título (solo visibles cuando se toca el control) -->
+    <div class="error" *ngIf="titulo?.invalid && titulo?.touched">
+      <small *ngIf="titulo?.errors?.['required']">
+        El título es obligatorio.
+      </small>
+      <small *ngIf="titulo?.errors?.['minlength']">
+        El título debe tener al menos 5 caracteres.
+      </small>
+    </div>
+
+    <!-- Campo: Descripción del aviso -->
+    <ion-item>
+      <ion-label position="stacked">Descripción</ion-label>
+      <ion-textarea
+        formControlName="descripcion"
+        autoGrow="true"
+        placeholder="Escribe una descripcion para que la comunidad entienda el aviso.">
+      </ion-textarea>
+    </ion-item>
+
+    <!-- Validaciones de la descripción -->
+    <div class="error" *ngIf="descripcion?.invalid && descripcion?.touched">
+      <small *ngIf="descripcion?.errors?.['required']">
+        La descripción es obligatoria.
+      </small>
+      <small *ngIf="descripcion?.errors?.['minlength']">
+        La descripción debe tener al menos 20 caracteres.
+      </small>
+    </div>
+
+    <!-- Sección de fotografía: botón + vista previa -->
+    <div class="foto-row">
+
+      <!-- Botón para abrir la cámara del dispositivo -->
+      <ion-button
+        expand="block"
+        type="button"
+        (click)="tomarFoto()">
+        <ion-icon slot="start" name="camera-outline"></ion-icon>
+        FOTOGRAFÍA
+      </ion-button>
+
+      <!-- Vista previa de la foto tomada (solo aparece si existe imagen) -->
+      <ion-img
+        *ngIf="imagenPreview"
+        [src]="imagenPreview"
+        class="foto-preview">
+      </ion-img>
+
+    </div>
+
+    <!-- Botón para guardar el aviso -->
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="formulario.invalid">
+      Guardar aviso
+    </ion-button>
+
+  </form>
+</ion-content>

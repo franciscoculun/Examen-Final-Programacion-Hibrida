@@ -1,0 +1,35 @@
+<!-- Contenedor principal del aviso dentro de la lista -->
+<ion-item lines="inset">
+
+  <!-- Muestra miniatura solo si el aviso tiene imagen -->
+  <ion-img
+    *ngIf="aviso.imagen"
+    [src]="aviso.imagen"
+    slot="start"
+    class="foto-mini">
+  </ion-img>
+
+  <!-- Sección de texto del aviso -->
+  <ion-label>
+    <!-- Título destacado -->
+    <h2>{{ aviso.titulo }}</h2>
+
+    <!-- Descripción breve del aviso -->
+    <p>{{ aviso.descripcion }}</p>
+
+    <!-- Fecha formateada usando el pipe personalizado -->
+    <p class="meta">
+      {{ aviso.fecha | fecha }}
+    </p>
+  </ion-label>
+
+  <!-- Botón para solicitar eliminación del aviso -->
+  <ion-button
+    fill="clear"
+    color="danger"
+    slot="end"
+    (click)="onEliminar()">
+    <ion-icon name="trash-outline"></ion-icon>
+  </ion-button>
+
+</ion-item>

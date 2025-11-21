@@ -1,0 +1,59 @@
+<!-- Encabezado principal de la página -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Avisos - Comunidad Peor es Nada</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- Componente encargado de renderizar la lista completa de avisos -->
+  <app-aviso-lista
+    [avisos]="avisos"
+    (eliminarAviso)="pedirConfirmacionEliminar($event)">
+  </app-aviso-lista>
+
+  <!-- Botón flotante para crear un nuevo aviso -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="irACrearAviso()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Modal para confirmar la eliminación de un aviso -->
+  <ion-modal
+    [isOpen]="!!avisoSeleccionado"
+    (didDismiss)="cerrarModal()"
+    cssClass="modal-confirmacion">
+
+    <ng-template>
+      <div class="modal-contenido">
+
+        <h2>Confirmar eliminación</h2>
+
+        <p>¿Seguro que deseas eliminar este aviso?</p>
+
+        <!-- Muestra el título del aviso que se va a eliminar -->
+        <p class="titulo">{{ avisoSeleccionado?.titulo }}</p>
+
+        <div class="botones">
+
+          <!-- Cierra el modal sin eliminar -->
+          <ion-button color="medium" (click)="cerrarModal()">
+            Cancelar
+          </ion-button>
+
+          <!-- Confirma la eliminación e invoca el servicio -->
+          <ion-button color="danger" (click)="confirmarEliminar()">
+            <ion-icon slot="start" name="trash-outline"></ion-icon>
+            Eliminar
+          </ion-button>
+
+        </div>
+
+      </div>
+    </ng-template>
+    
+  </ion-modal>
+  
+</ion-content>
